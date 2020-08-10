@@ -2,11 +2,12 @@
 #define NEURON_H
 #include <vector>
 
+using namespace std;
+
 class Neuron{
     public: 
         Neuron();
-        virtual float computeOutput();
-    protected:
+        virtual float computeOutput() = 0;
         int _index;
         int _layer;
 };
@@ -33,15 +34,14 @@ class HiddenNeuron: public Neuron{
         void setWeight(int index, float w);
 
     protected:
-        std::vector<float> weights;
+        vector<float> weights;
         float bias = 0.0;
         int previousNeuronCount = 0;
-        std::vector<Neuron*> previousNeurons;
+        vector<Neuron*> previousNeurons;
 };
 
 class OutputNeuron: public HiddenNeuron{
     public:
         OutputNeuron(int layer, int index);
-};
-    
+};  
 #endif

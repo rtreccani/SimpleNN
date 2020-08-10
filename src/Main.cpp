@@ -9,44 +9,32 @@ using namespace std;
 #include "fileio.h"
 #include "helpers.h"
 
+#define L0SIZE 28*28
+#define L1SIZE 40
+#define L2SIZE 10
 
 
 int main(){
+    printf("ok %d, %d, %d, %d\n", sizeof(Neuron), sizeof(InputNeuron), sizeof(HiddenNeuron), sizeof(OutputNeuron));
     int labelVal = getNextLabel();
     
     vector<InputNeuron> inputLayer;
-    for(int i = 0; i < 28*28; i++){
-        inputLayer.push_back(InputNeuron(0,i, getNextPixel()));
-    }
+    createInputLayer(L0SIZE, &inputLayer);
 
     vector<HiddenNeuron> hiddenLayerOne;
-    for(int i = 0; i < 100; i++){
-        HiddenNeuron h(1, i);
-        h.setBias(randFloat());
-        for (int j = 0; j < inputLayer.size(); j++){
-            h.addSynapse(&inputLayer[j], randFloat());
-        }
-        hiddenLayerOne.push_back(h);
-    }
+    createHiddenLayer(L1SIZE, inputLayer, &hiddenLayerOne);
+   
 
     vector<OutputNeuron> outputLayer;
-    for(int i = 0; i < 10; i++){
-        OutputNeuron o(2, i);
-        o.setBias(randFloat());
-        for(int j = 0; j < hiddenLayerOne.size(); j++){
-            o.addSynapse(&hiddenLayerOne[j], randFloat());
-        }
-        outputLayer.push_back(o);
-    }
-
+    createOutputLayer(L2SIZE, hiddenLayerOne, &outputLayer);
+    
     printf("added all neurons\n");
-
     //do the recursive backwards sweep through the NN to find the outputs
     for(int i = 0; i < outputLayer.size(); i++){
         printf("output %d, value %f\n", i, outputLayer[i].computeOutput());
     }
 
-    return(0);
+    return(0); 
 
 
     
