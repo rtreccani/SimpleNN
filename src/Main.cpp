@@ -15,8 +15,6 @@ using namespace std;
 
 
 int main(){
-    printf("ok %d, %d, %d, %d\n", sizeof(Neuron), sizeof(InputNeuron), sizeof(HiddenNeuron), sizeof(OutputNeuron));
-    int labelVal = getNextLabel();
     
     vector<InputNeuron> inputLayer;
     createInputLayer(L0SIZE, &inputLayer);
@@ -28,11 +26,20 @@ int main(){
     vector<OutputNeuron> outputLayer;
     createOutputLayer(L2SIZE, hiddenLayerOne, &outputLayer);
     
-    printf("added all neurons\n");
-    //do the recursive backwards sweep through the NN to find the outputs
-    for(int i = 0; i < outputLayer.size(); i++){
-        printf("output %d, value %f\n", i, outputLayer[i].computeOutput());
+    for(int i = 0; i < 60000; i++){
+        int label = getNewTrainingDataAndLabel(i, inputLayer);
+        //printf("label is %d\n", label);
+        float target[10];
+        intToUnary(label, target);
+
+        float actual[10];
+
+        for(int i = 0; i < outputLayer.size(); i++){
+            actual[i] = outputLayer[i].computeOutput();
+        }
+        printf("error for sample %d is %f\n", label, MSE(target, actual, 10));
     }
+
 
     return(0); 
 

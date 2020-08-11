@@ -14,8 +14,10 @@ class Neuron{
 
 class InputNeuron: public Neuron{
     public:
+        InputNeuron(int layer, int index);
         InputNeuron(int layer, int index, int _value);
         float computeOutput() override;
+        void changeValue(float val);
     private:
         float _value;
 };

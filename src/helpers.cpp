@@ -18,11 +18,23 @@ float MSE(float* listA, float* listB, int listSize){
     return(squareError/listSize);
 }
 
+void intToUnary(int val, float* arr){
+    for(int i = 0; i < 10; i++){
+        if(i == val){
+            arr[i] = 1;
+        }
+        else{
+            arr[i] = 0;
+        }
+    }
+}
+
+
 //wow vectors so cool B)
 void createInputLayer(int size, vector<InputNeuron>* thisLayer){
     
     for(int i = 0; i < size; i++){
-        thisLayer->push_back(InputNeuron(0, i, getNextPixel()));
+        thisLayer->push_back(InputNeuron(0, i));//, getNextPixel()));
     }
 }
 

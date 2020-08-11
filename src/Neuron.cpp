@@ -27,6 +27,17 @@ InputNeuron::InputNeuron(int layer, int index, int value){
     _value = value/255.0;
 }
 
+InputNeuron::InputNeuron(int layer, int index){
+    _index = index;
+    _layer = layer;
+}
+
+void InputNeuron::changeValue(float val){
+    //printf("my old value was %f", _value);
+    _value = val;
+    //printf("my new value is %f\n", _value);
+}
+
 //overrides base(Neuron) constructor for the OutputNeuron class
 OutputNeuron::OutputNeuron(int layer, int index){
     _index = index;

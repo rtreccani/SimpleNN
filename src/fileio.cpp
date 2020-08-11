@@ -36,3 +36,23 @@ int getNextLabel(){
     labelsFile.read((char*)&a, 1);
     return((int)a);
 }
+
+
+int getNewTrainingDataAndLabel(int fileIndex, vector<InputNeuron>& inputNeurons){
+    char fileAddress[50];
+    sprintf(fileAddress, "data/training/%d.train", fileIndex);
+    //printf("opening file %s\n", fileAddress);
+    ifstream currentFile(fileAddress, ios::in | ios::binary);
+    if(!currentFile){
+        printf("file not opened");
+    }
+    uint8_t label;
+    currentFile.read((char*)&label, 1);
+    for(int i = 0; i < inputNeurons.size(); i++){
+        uint8_t newData;
+        currentFile.read((char*)&newData, 1);
+        inputNeurons[i].changeValue(float(newData/255.0));  
+    }
+    currentFile.close();
+    return(int(label));
+}
