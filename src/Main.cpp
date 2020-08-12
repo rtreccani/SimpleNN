@@ -34,10 +34,19 @@ int main(){
 
         float actual[10];
 
-        for(int i = 0; i < outputLayer.size(); i++){
-            actual[i] = outputLayer[i].computeOutput();
+        for(int loops=0; loops < 10; loops++){
+            for(int ne = 0; ne < outputLayer.size(); ne++){
+                actual[ne] = outputLayer[ne].computeOutput();
+                outputLayer[ne].backPropogate(target[ne]);
+            }
+        //printf("error for sample %d is %f   \n", label, MSE(target, actual, 10));
         }
-        printf("error for sample %d is %f\n", label, MSE(target, actual, 10));
+        
+        printf("error for sample %d is %f   ", label, MSE(target, actual, 10));
+        for(int ne = 0; ne < 10; ne++){
+            printf("%f, ", actual[ne]);
+        }
+        printf("\n");
     }
 
 

@@ -21,10 +21,10 @@ float MSE(float* listA, float* listB, int listSize){
 void intToUnary(int val, float* arr){
     for(int i = 0; i < 10; i++){
         if(i == val){
-            arr[i] = 1;
+            arr[i] = 1.0;
         }
         else{
-            arr[i] = 0;
+            arr[i] = 0.0;
         }
     }
 }

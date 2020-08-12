@@ -5,8 +5,15 @@
 
 using namespace std;
 
+
+
 float sigmoid(float x){
     return(1.0/(1.0+exp(-x)));
+}
+
+//given in terms of the output of a sigmoid, not an input
+float sigmoidDerivative(float out){
+    return(out*(1.0-out));
 }
 
 //constructors
@@ -75,3 +82,32 @@ void HiddenNeuron::addSynapse(Neuron* previousNeuron, float weight){
 void HiddenNeuron::setBias(float b){
     bias = b;
 }
+
+
+void HiddenNeuron::backPropogate(float errorPrev, float weight){
+    float currentOutput = computeOutput();
+    float error = (weight * errorPrev) * sigmoidDerivative(currentOutput); 
+    for(int i = 0; i < weights.size(); i++){
+        weights[i] = weights[i] + ALPHA * error * previousNeurons[i]->computeOutput();
+    }
+    bias = bias + ALPHA * error * bias;
+}
+
+void OutputNeuron::backPropogate(float expected){
+    float currentOutput = computeOutput();
+    float error = (expected - currentOutput) * sigmoidDerivative(currentOutput); 
+    for(int i = 0; i < weights.size(); i++){
+        weights[i] = weights[i] + ALPHA * error * previousNeurons[i]->computeOutput();
+        if(_layer != 1){
+            previousNeurons[i]->backPropogate(error, weights[i]);
+        }
+    }
+    bias = bias + ALPHA * error * bias;
+}
+
+
+
+
+void InputNeuron::backPropogate(float expected){printf("you shouldn't be here\n");}
+void InputNeuron::backPropogate(float expected, float weight){printf("you shouldn't be here\n");}\
+void HiddenNeuron::backPropogate(float expected){printf("you shouldn't be here\n");}
