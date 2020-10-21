@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <vector>
-#include <unistd.h>
+
 
 using namespace std;
 
@@ -26,6 +26,8 @@ int main(){
     vector<OutputNeuron> outputLayer;
     createOutputLayer(L2SIZE, hiddenLayerOne, &outputLayer);
     
+
+    
     for(int i = 0; i < 60000; i++){
         int label = getNewTrainingDataAndLabel(i, inputLayer);
         //printf("label is %d\n", label);
@@ -34,7 +36,7 @@ int main(){
 
         float actual[10];
 
-        for(int loops=0; loops < 10; loops++){
+        for(int loops=0; loops < 1; loops++){
             for(int ne = 0; ne < outputLayer.size(); ne++){
                 actual[ne] = outputLayer[ne].computeOutput();
                 outputLayer[ne].backPropogate(target[ne]);
@@ -42,13 +44,14 @@ int main(){
         //printf("error for sample %d is %f   \n", label, MSE(target, actual, 10));
         }
         
-        printf("error for sample %d is %f   ", label, MSE(target, actual, 10));
-        for(int ne = 0; ne < 10; ne++){
-            printf("%f, ", actual[ne]);
-        }
-        printf("\n");
-    }
 
+        
+        //printf("error for sample %d is %f   ", label, MSE(target, actual, 10));
+        if(i % 100 == 0){
+            drawPlot(actual, label);
+        }
+    }
+    
 
     return(0); 
 

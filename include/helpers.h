@@ -18,4 +18,6 @@ void createHiddenLayer(int size, vector<InputNeuron>& prevLayer, vector<HiddenNe
 
 void createOutputLayer(int size, vector<HiddenNeuron>& prevLayer, vector<OutputNeuron>* thisLayer);
 
+void drawPlot(float* values, int label);
+
 #endif

@@ -2,7 +2,7 @@
 #define NEURON_H
 #include <vector>
 
-#define ALPHA 0.01
+#define ALPHA 0.05
 
 using namespace std;
 

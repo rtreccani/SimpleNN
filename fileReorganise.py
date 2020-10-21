@@ -1,7 +1,7 @@
 import sys, os
 
-labelsfile = open("testLabels", "rb")
-imagesfile = open("trainLabels", "rb")
+labelsfile = open("trainLabels", "rb")
+imagesfile = open("trainImages", "rb")
 
 stillReading = True
 i = 0
@@ -10,7 +10,7 @@ labelsfile.read(8)
 imagesfile.read(16)
 
 while(stillReading):
-    newSampleFile =open("data/testing/" + str(i) + ".test", "wb")
+    newSampleFile =open("data/training/" + str(i) + ".train", "wb")
     newSampleFile.write(labelsfile.read(1))
     newSampleFile.write(imagesfile.read(28*28))
     newSampleFile.close()

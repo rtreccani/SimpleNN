@@ -109,5 +109,5 @@ void OutputNeuron::backPropogate(float expected){
 
 
 void InputNeuron::backPropogate(float expected){printf("you shouldn't be here\n");}
-void InputNeuron::backPropogate(float expected, float weight){printf("you shouldn't be here\n");}\
+void InputNeuron::backPropogate(float expected, float weight){printf("you shouldn't be here\n");}
 void HiddenNeuron::backPropogate(float expected){printf("you shouldn't be here\n");}
